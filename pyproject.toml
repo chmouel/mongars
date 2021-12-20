@@ -7,7 +7,6 @@ authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 PyGObject = "^3.42.0"
-IMAPClient = "^2.2.0"
 
 [tool.poetry.scripts]
 mongars = "mongars.cli:main"

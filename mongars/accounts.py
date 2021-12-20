@@ -1,5 +1,5 @@
 import logging
-import hashlib
+import sys
 import typing
 
 import gi
@@ -7,14 +7,14 @@ import gi
 gi.require_version('Secret', '1')
 gi.require_version('GLib', '2.0')
 # pylint: disable=C0413
-from gi.repository import GLib, Secret
+from gi.repository import GLib
 
 try:
     gi.require_version('Goa', '1.0')
     from gi.repository import Goa
 except (ValueError, ModuleNotFoundError):
     logging.warning('No gnome online accounts support found')
-    Goa = None  # pylint: disable=C0103
+    sys.exit(1)
 
 
 class AccountError(Exception):
@@ -41,13 +41,12 @@ class GOA:
             # pylint: disable=no-member
             if error.code == 0:
                 raise AccountError('Account Offline') from error
-            elif error.code == 4:
+            if error.code == 4:
                 raise AccountError(
                     'Locked or Invalid credentials for GOA account') from error
-            else:
-                logging.error('Unknown GLIB exception getting GOA credentials',
-                              exc_info=True)
-                raise AccountError('Unknown error') from error
+            logging.error('Unknown GLIB exception getting GOA credentials',
+                          exc_info=True)
+            raise AccountError('Unknown error') from error
         except Exception as error:
             logging.info('Unknown exception getting GOA credentials',
                          exc_info=True)
@@ -55,8 +54,8 @@ class GOA:
 
         return {
             'host': imap_host,
-            'token': auth_token[0],
             'user': user_name,
+            'oauth': f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
         }
 
     @staticmethod

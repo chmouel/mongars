@@ -8,13 +8,14 @@ python-versions = "~=3.6"
 
 [package.dependencies]
 lazy-object-proxy = ">=1.4.0"
+typing-extensions = {version = ">=3.10", markers = "python_version < \"3.10\""}
 wrapt = ">=1.11,<1.14"
 
 [[package]]
 name = "asttokens"
 version = "2.0.5"
 description = "Annotate AST trees with source code positions"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -50,7 +51,7 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 name = "colorama"
 version = "0.4.4"
 description = "Cross-platform colored terminal text."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -58,7 +59,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "executing"
 version = "0.8.2"
 description = "Get the currently executing AST node of a frame, and other information"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -66,7 +67,7 @@ python-versions = "*"
 name = "icecream"
 version = "2.1.1"
 description = "Never use print() to debug again; inspect variables, expressions, and program execution with a single, simple function call."
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -75,21 +76,6 @@ asttokens = ">=2.0.1"
 colorama = ">=0.3.9"
 executing = ">=0.3.1"
 pygments = ">=2.2.0"
-
-[[package]]
-name = "imapclient"
-version = "2.2.0"
-description = "Easy-to-use, Pythonic and complete IMAP client library"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-six = "*"
-
-[package.extras]
-doc = ["sphinx"]
-test = ["mock (>=1.3.0)"]
 
 [[package]]
 name = "isort"
@@ -208,7 +194,7 @@ python-versions = ">=3.6, <4"
 name = "pygments"
 version = "2.10.0"
 description = "Pygments is a syntax highlighting package written in Python."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.5"
 
@@ -238,6 +224,7 @@ isort = ">=4.2.5,<6"
 mccabe = ">=0.6,<0.7"
 platformdirs = ">=2.2.0"
 toml = ">=0.9.2"
+typing-extensions = {version = ">=3.10.0", markers = "python_version < \"3.10\""}
 
 [[package]]
 name = "pyparsing"
@@ -276,7 +263,7 @@ testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xm
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
@@ -330,8 +317,8 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
-content-hash = "e09be86f21946568c2f5e012a908a3ae4309bfb0353e628efbaef27f6aae965e"
+python-versions = "^3.8"
+content-hash = "73901a2c0892a037874dc85272f15e56b74fee532d01a198b44a80518313273c"
 
 [metadata.files]
 astroid = [
@@ -361,10 +348,6 @@ executing = [
 icecream = [
     {file = "icecream-2.1.1-py2.py3-none-any.whl", hash = "sha256:adc1c48f5a4f83b2171c774a35142f217d317a84fca8cdf3fc65aa1321ff26b6"},
     {file = "icecream-2.1.1.tar.gz", hash = "sha256:47e00e3f4e8477996e7dc420b6fa8ba53f8ced17de65320fedb5b15997b76589"},
-]
-imapclient = [
-    {file = "IMAPClient-2.2.0-py2.py3-none-any.whl", hash = "sha256:f30a4a94746accfdb0d2b0324e312f2c83579ae20351c3c20ea76f17127936ab"},
-    {file = "IMAPClient-2.2.0.zip", hash = "sha256:0578056b9fff5316516f460810fc8b485f6fd7e3f4203786c130e222007d63f3"},
 ]
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},

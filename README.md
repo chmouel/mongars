@@ -25,6 +25,9 @@ This currently only support oauth2 based accounts, imap account with username,
 password are not currently supported (patch welcome but you probably want to use
 something more secure).
 
+I only tested it with Google/Gmail accounts (enteprise and personal) so let me
+know if it works or not on other oauth2 based email accounts.
+
 ## Install
 
 ### Arch

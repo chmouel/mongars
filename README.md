@@ -59,3 +59,29 @@ From your window manager or somewhere else you need to make sure to run the goa-
 
 different distros may have a different path, see also this bugzilla bug
 [#1340203](https://bugzilla.redhat.com/show_bug.cgi?id=1340203))
+
+## Polybar
+
+You can easily integrate this with [Polybar](https://github.com/polybar/polybar) :
+
+```ini
+[module/email]
+type = custom/script
+format-prefix = " "
+exec = mongars email@gmail.com
+format-prefix-foreground = #ffd700
+interval = 5
+click-left = xdg-open https://mail.google.com/
+```
+
+It will only shows up when you have emails.
+
+Sames goes for the integration with other bars like [waybar](https://github.com/Alexays/Waybar/)
+
+## License
+
+[Apache](./LICENSE)
+
+## Authors
+
+© 2021 Chmouel Boudjnah ([@chmouel](https://twitter.com/chmouel)) - https://chmouel.com

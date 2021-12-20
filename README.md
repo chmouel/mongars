@@ -25,6 +25,24 @@ This currently only support oauth2 based accounts, imap account with username,
 password are not currently supported (patch welcome but you probably want to use
 something more secure).
 
+## Install
+
+### Arch
+
+You can install this [from aur](https://aur.archlinux.org/packages/mongars) with your aurhelper, like yay :
+
+```
+yay -Ss mongars
+```
+
+### Manual
+
+Checkout this repository, [install poetry](https://python-poetry.org/docs/#installation) and run it with :
+
+```shell
+poetry run mongars
+```
+
 ## Running it without Gnome
 
 If you run this without gnome environement, you have to configure the accounts

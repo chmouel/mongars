@@ -2,7 +2,6 @@
 import argparse
 import sys
 
-from icecream import ic
 from imapclient import IMAPClient
 
 from .accounts import GOA

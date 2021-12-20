@@ -45,6 +45,6 @@ git commit -S -m "Release ${VERSION} 🥳" ${vfile} || true
 git tag -s ${VERSION} -m "Releasing version ${VERSION}"
 git push --tags origin ${VERSION}
 git push origin main
-gh release create ${VERSION} --title "Release ${VERSION} 🥳"
+gh release create ${VERSION} --notes "Release ${VERSION} 🥳"
 
 ./packaging/aur/build.sh

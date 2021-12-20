@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mongars"
-version = "0.1.0"
+version = "0.0.2"
 description = "Show unread emails in INBOX using Gnome Online Accounts"
 authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
 

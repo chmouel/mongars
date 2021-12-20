@@ -1,4 +1,6 @@
-# mongars -- count inbox emails using Gnome Online Accounts
+# mongars - count inbox emails
+
+count inbox emails using Gnome Online Accounts
 
 ## Description
 

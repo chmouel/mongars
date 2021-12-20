@@ -35,7 +35,7 @@ know if it works or not on other oauth2 based email accounts.
 You can install this [from aur](https://aur.archlinux.org/packages/mongars) with your aurhelper, like yay :
 
 ```
-yay -Ss mongars
+yay -S mongars
 ```
 
 ### Manual

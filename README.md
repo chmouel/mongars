@@ -91,6 +91,7 @@ type = custom/script
 exec = mongars email@gmail.com
 interval = 5
 click-left = xdg-open https://mail.google.com/
+exec-if = test -x /usr/bin/mongars && test -f ~/.config/goa-1.0/accounts.conf && grep -q email@gmail.com ~/.config/goa-1.0/accounts.conf
 ```
 
 Sames goes for the integration with other bars like [waybar](https://github.com/Alexays/Waybar/)

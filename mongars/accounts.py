@@ -55,7 +55,8 @@ class GOA:
         return {
             'host': imap_host,
             'user': user_name,
-            'oauth': f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
+            'oauth':
+            f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
         }
 
     @staticmethod

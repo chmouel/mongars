@@ -21,6 +21,14 @@ woulld like to count another folder you can specify the -m option to it :
 mongars -m Label1 john.snow@gmail.com
 ```
 
+You can further customize the colour output which uses lemonbar formatting with :
+
+* `--icon`: the glyph icon default to ``
+* `--icon-color-unreads`: the color when unreads, default to a yellow `#ffd700` set this to empty if you don't want any color formatting.
+* `--icon-color-normal`: the normal colors. (no default)
+
+If you don't want any icons you can simply use the `--no-icon` and it will just output the number.
+
 This currently only support oauth2 based accounts, imap account with username,
 password are not currently supported (patch welcome but you probably want to use
 something more secure).
@@ -78,14 +86,12 @@ You can easily integrate this with [Polybar](https://github.com/polybar/polybar)
 ```ini
 [module/email]
 type = custom/script
-format-prefix = " "
+# if you want to customize the output
+# exec = mongars email@gmail.com --icon-color-unreads="#ff4500" --icon=""
 exec = mongars email@gmail.com
-format-prefix-foreground = #ffd700
 interval = 5
 click-left = xdg-open https://mail.google.com/
 ```
-
-It will only shows up when you have emails.
 
 Sames goes for the integration with other bars like [waybar](https://github.com/Alexays/Waybar/)
 

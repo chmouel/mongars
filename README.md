@@ -91,7 +91,7 @@ Sames goes for the integration with other bars like [waybar](https://github.com/
 
 ## License
 
-[Apache](./LICENSE)
+[Apache 2.0](./LICENSE)
 
 ## Authors
 

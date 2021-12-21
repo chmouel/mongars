@@ -48,10 +48,10 @@ poetry run mongars
 
 ## Running it without Gnome
 
-If you run this without gnome environement, you have to configure the accounts
-first in Gnone Online Account settings.
+If you run this outside of gnome environement (ie: from a windows manager), you have to configure the accounts
+first in Gnone Online Account settings from gnome and then you can use it from your windows manager.
 
-From your window manager or somewhere else you need to make sure to run the goa-daemon, for example on arch the path is `/usr/lib/goa-daemon` and from your startup script you will do :
+From your window manager start scripts or [somewhere else](https://wiki.archlinux.org/title/Xinit)  you need to make sure to run the goa-daemon, for example on arch the path is `/usr/lib/goa-daemon` and from your startup script you will do :
 
 ```shell
 /usr/lib/goa-daemon --replace &

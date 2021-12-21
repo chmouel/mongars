@@ -1,3 +1,4 @@
+import email
 import argparse
 import imaplib
 import typing
@@ -12,8 +13,7 @@ def get_unseen(mailbox: str, conn) -> typing.Union[str, list]:
     ret, messages = conn.search(None, "(UNSEEN)")
     if ret != "OK":
         return "CANNOTSEARCH"
-    return [x for x in messages if x]
-
+    return messages[0].split()
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(

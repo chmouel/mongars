@@ -38,11 +38,22 @@ You can install this [from aur](https://aur.archlinux.org/packages/mongars) with
 yay -S mongars
 ```
 
+### pip
+
+With pip from pypip - https://pypi.org/project/mongars/
+
+```
+pip install --user mongars
+```
+
+(make sure $HOME/.local/bin is in your PATH)
+
 ### Manual
 
 Checkout this repository, [install poetry](https://python-poetry.org/docs/#installation) and run it with :
 
 ```shell
+poetry install mongars
 poetry run mongars
 ```
 

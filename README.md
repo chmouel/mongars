@@ -14,8 +14,10 @@ You just need to specify the email to check as an argument i.e:
 mongars john.snow@gmail.com
 ```
 
-by default it will count the unread messages in the `INBOX` folder, if you
-woulld like to count another folder you can specify the -m option to it :
+By default it will output the number of messages from your mailbox with an icon of different
+colours if there is unreads message or not.
+
+The `INBOX` folder is the default folder, if you would like to count another folder you can specify the `-m` option to it :
 
 ```shell
 mongars -m Label1 john.snow@gmail.com

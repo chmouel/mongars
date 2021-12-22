@@ -67,14 +67,11 @@ You can easily integrate this with [Polybar](https://github.com/polybar/polybar)
 ```ini
 [module/email]
 type = custom/script
-format-prefix = " "
 exec = mongars email@gmail.com
-format-prefix-foreground = #ffd700
-interval = 5
+interval = 30
 click-left = xdg-open https://mail.google.com/
+exec-if = grep -q email@gmail.com ~/.config/goa-1.0/accounts.conf 2>/dev/null && ping -c1 mail.google.com
 ```
-
-It will only shows up when you have emails.
 
 Sames goes for the integration with other bars like [waybar](https://github.com/Alexays/Waybar/)
 

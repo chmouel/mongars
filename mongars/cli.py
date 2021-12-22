@@ -1,7 +1,5 @@
-import email
 import argparse
 import imaplib
-import typing
 import logging
 
 from .accounts import GOA
@@ -66,17 +64,16 @@ def check_accounts(args: argparse.Namespace) -> str:
             logging.debug("error authenticating to account")
             return ""
         unseens = get_unseen(args.mailbox, conn)
-        if not unseens:
-            return ""
-
         if args.no_icon:
             return str(len(unseens))
 
         iconstring = f"{args.icon}"
         if len(unseens) == 0 and args.icon_color_normal:
+            # pylint: disable=consider-using-f-string
             iconstring = "%%{F%s}%s%%{F-}" % (args.icon_color_normal,
                                               args.icon)
         elif len(unseens) > 0 and args.icon_color_unreads:
+            # pylint: disable=consider-using-f-string
             iconstring = "%%{F%s}%s%%{F-}" % (
                 args.icon_color_unreads,
                 args.icon,

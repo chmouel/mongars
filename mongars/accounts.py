@@ -1,12 +1,12 @@
 import logging
 import typing
 
-import gi
+import gi  # type:ignore
 
 gi.require_version('Secret', '1')
 gi.require_version('GLib', '2.0')
 # pylint: disable=C0413
-from gi.repository import GLib
+from gi.repository import GLib  # type:ignore
 
 
 class AccountError(Exception):
@@ -15,7 +15,7 @@ class AccountError(Exception):
 
 try:
     gi.require_version('Goa', '1.0')
-    from gi.repository import Goa
+    from gi.repository import Goa  # type:ignore
 except (ValueError, ModuleNotFoundError) as exp:
     raise AccountError('No gnome online accounts support found') from exp
 

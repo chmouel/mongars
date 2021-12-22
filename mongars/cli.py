@@ -1,3 +1,4 @@
+import email
 import argparse
 import imaplib
 import typing
@@ -15,7 +16,7 @@ def get_unseen(mailbox: str, conn) -> list:
     if ret != "OK":
         logging.debug("cannot search unseen")
         return []
-    return [x for x in messages if x]
+    return messages[0].split()
 
 
 def parse_args() -> argparse.Namespace:
@@ -31,6 +32,18 @@ def parse_args() -> argparse.Namespace:
                         "-m",
                         default="INBOX",
                         help="Mailbox to check")
+    parser.add_argument("--no-icon",
+                        action="store_true",
+                        default=False,
+                        help="wether we output an icon")
+    parser.add_argument("--icon",
+                        default="",
+                        help="icon to use by default (need to be a glyph)")
+    parser.add_argument("--icon-color-unreads",
+                        default="#ffd700",
+                        help="icon color when there is unreads")
+    parser.add_argument("--icon-color-normal",
+                        help="icon color when there is unreads")
     args = parser.parse_args()
     if args.verbose:
         logging.basicConfig()
@@ -53,12 +66,27 @@ def check_accounts(args: argparse.Namespace) -> str:
             logging.debug("error authenticating to account")
             return ""
         unseens = get_unseen(args.mailbox, conn)
-        if len(unseens) > 0:
+        if not unseens:
+            return ""
+
+        if args.no_icon:
             return str(len(unseens))
-        return ""
+
+        iconstring = f"{args.icon}"
+        if len(unseens) == 0 and args.icon_color_normal:
+            iconstring = "%%{F%s}%s%%{F-}" % (args.icon_color_normal,
+                                              args.icon)
+        elif len(unseens) > 0 and args.icon_color_unreads:
+            iconstring = "%%{F%s}%s%%{F-}" % (
+                args.icon_color_unreads,
+                args.icon,
+            )
+
+        return f"{iconstring} {str(len(unseens))}"
 
     logging.debug("account not found")
     return ""
+
 
 def main():
     args = parse_args()

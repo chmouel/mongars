@@ -1,5 +1,4 @@
 import logging
-import sys
 import typing
 
 import gi
@@ -9,16 +8,16 @@ gi.require_version('GLib', '2.0')
 # pylint: disable=C0413
 from gi.repository import GLib
 
-try:
-    gi.require_version('Goa', '1.0')
-    from gi.repository import Goa
-except (ValueError, ModuleNotFoundError):
-    logging.warning('No gnome online accounts support found')
-    sys.exit(1)
-
 
 class AccountError(Exception):
     pass
+
+
+try:
+    gi.require_version('Goa', '1.0')
+    from gi.repository import Goa
+except (ValueError, ModuleNotFoundError) as exp:
+    raise AccountError('No gnome online accounts support found') from exp
 
 
 class GOA:
@@ -55,7 +54,8 @@ class GOA:
         return {
             'host': imap_host,
             'user': user_name,
-            'oauth': f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
+            'oauth':
+            f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
         }
 
     @staticmethod

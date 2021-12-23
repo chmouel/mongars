@@ -30,6 +30,11 @@ def parse_args() -> argparse.Namespace:
                         "-m",
                         default="INBOX",
                         help="Mailbox to check")
+    parser.add_argument(
+        "--no-mail-no-zero",
+        action="store_true",
+        help=
+        "if we have no mail don't output anything (by default we output a 0)")
     parser.add_argument("--no-icon",
                         action="store_true",
                         default=False,
@@ -64,6 +69,9 @@ def check_accounts(args: argparse.Namespace) -> str:
             logging.debug("error authenticating to account")
             return ""
         unseens = get_unseen(args.mailbox, conn)
+        if args.no_mail_no_zero and len(unseens) == 0:
+            return ""
+
         if args.no_icon:
             return str(len(unseens))
 

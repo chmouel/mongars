@@ -29,6 +29,8 @@ You can further customize the colour output which uses lemonbar formatting with 
 * `--icon-color-unreads`: the color when unreads, default to a yellow `#ffd700` set this to empty if you don't want any color formatting.
 * `--icon-color-normal`: the normal colors. (no default)
 
+By default if you have no mail it will output a 0 unless you specify the flag `--no-mail-no-zero`
+
 If you don't want any icons you can simply use the `--no-icon` and it will just output the number.
 
 This currently only support oauth2 based accounts, imap account with username,
@@ -94,7 +96,24 @@ click-left = xdg-open https://mail.google.com/
 exec-if = grep -q email@gmail.com ~/.config/goa-1.0/accounts.conf 2>/dev/null && ping -c1 mail.google.com
 ```
 
-Sames goes for the integration with other bars like [waybar](https://github.com/Alexays/Waybar/)
+
+## Waybar
+```json
+    "custom/email": {
+        "format": "﫮 {} ",
+        "interval": 15,
+        "exec": "mongars email@gmail.com --no-mail-no-zero --no-icon",
+        "on-click": "xdg-open https://mail.google.com"
+    },
+```
+
+and you can style it in `style.css` file :
+
+```css
+#custom-email {
+	color: #b22222;
+}
+```
 
 ## License
 

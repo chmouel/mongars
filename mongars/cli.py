@@ -1,11 +1,14 @@
 import argparse
+import email
 import imaplib
 import logging
+import sys
 
 from .accounts import GOA
 
 
 def get_unseen(mailbox: str, conn) -> list:
+    unseens = []
     resp, _ = conn.select(mailbox)
     if resp != "OK":
         logging.debug("cannot select mailbox %s", mailbox)
@@ -14,10 +17,16 @@ def get_unseen(mailbox: str, conn) -> list:
     if ret != "OK":
         logging.debug("cannot search unseen")
         return []
-    return messages[0].split()
+    if not messages[0]:
+        return []
+    for msg in messages[0].decode().split(' '):
+        _, response = conn.fetch(msg, '(BODY.PEEK[HEADER])')
+        msg = email.message_from_bytes(response[0][1])
+        unseens.append(f'{msg["From"]} - {msg.get("Subject", "No Subject")}')
+    return unseens
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(args) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Show email count from Gnome Online Account')
     parser.add_argument("email")
@@ -47,7 +56,10 @@ def parse_args() -> argparse.Namespace:
                         help="icon color when there is unreads")
     parser.add_argument("--icon-color-normal",
                         help="icon color when there is unreads")
-    args = parser.parse_args()
+    parser.add_argument("--show-from-subject",
+                        action="store_true",
+                        help="Show from and subject of new emails")
+    args = parser.parse_args(args)
     if args.verbose:
         logging.basicConfig()
         logging.getLogger().setLevel(logging.DEBUG)
@@ -72,6 +84,9 @@ def check_accounts(args: argparse.Namespace) -> str:
         if args.no_mail_no_zero and len(unseens) == 0:
             return ""
 
+        if args.show_from_subject:
+            return "\n".join(unseens)
+
         if args.no_icon:
             return str(len(unseens))
 
@@ -94,7 +109,7 @@ def check_accounts(args: argparse.Namespace) -> str:
 
 
 def main():
-    args = parse_args()
+    args = parse_args(sys.argv)
     ret = None
     try:
         ret = check_accounts(args)

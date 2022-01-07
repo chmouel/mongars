@@ -86,7 +86,7 @@ def check_accounts(args: argparse.Namespace) -> str:
                 args.icon_color_unreads,
                 args.icon,
             )
-
+        conn.close()
         return f"{iconstring} {str(len(unseens))}"
 
     logging.debug("account not found")

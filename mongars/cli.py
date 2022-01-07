@@ -66,6 +66,7 @@ def parse_args(args) -> argparse.Namespace:
     return args
 
 
+# pylint: disable=too-many-return-statements
 def check_accounts(args: argparse.Namespace) -> str:
     accounts = GOA.get_accounts()
     if not accounts:

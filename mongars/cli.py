@@ -5,24 +5,27 @@ import logging
 import sys
 
 from .accounts import GOA
+from .notify import notify_if_not_already
 
 
-def get_unseen(mailbox: str, conn) -> list:
-    unseens = []
+def get_unseen(mailbox: str, conn) -> dict:
+    unseens = {}
     resp, _ = conn.select(mailbox)
     if resp != "OK":
         logging.debug("cannot select mailbox %s", mailbox)
-        return []
+        return {}
     ret, messages = conn.search(None, "(UNSEEN)")
     if ret != "OK":
         logging.debug("cannot search unseen")
-        return []
+        return unseens
     if not messages[0]:
-        return []
+        return unseens
     for msg in messages[0].decode().split(' '):
         _, response = conn.fetch(msg, '(BODY.PEEK[HEADER])')
         msg = email.message_from_bytes(response[0][1])
-        unseens.append(f'{msg["From"]} - {msg.get("Subject", "No Subject")}')
+        unseens[
+            msg.get("Message-Id"
+                    )] = f'{msg["From"]} - {msg.get("Subject", "No Subject")}'
     return unseens
 
 
@@ -44,6 +47,7 @@ def parse_args(args) -> argparse.Namespace:
         action="store_true",
         help=
         "if we have no mail don't output anything (by default we output a 0)")
+    parser.add_argument("--notify", action="store_true")
     parser.add_argument("--no-icon",
                         action="store_true",
                         default=False,
@@ -85,8 +89,11 @@ def check_accounts(args: argparse.Namespace) -> str:
         if args.no_mail_no_zero and len(unseens) == 0:
             return ""
 
+        if args.notify:
+            notify_if_not_already(unseens)
+
         if args.show_from_subject:
-            return "\n".join(unseens)
+            return "\n".join(unseens.values())
 
         if args.no_icon:
             return str(len(unseens))

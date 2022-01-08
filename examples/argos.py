@@ -2,6 +2,8 @@
 # integrate with argos/pew https://github.com/p-e-w/argos config your ACCOUNTS
 # array and copy this file in ~/.config/argos/email.l.120s.py
 # see project documentation for more details
+import subprocess
+
 import mongars.cli as mong
 
 ACCOUNTS = {
@@ -25,7 +27,23 @@ def check_accounts(accounts):
     return totals, ret
 
 
+# use NetworkManager to checks if we are online
+def check_online() -> bool:
+    try:
+        subprocess.run("nm-online -t 1",
+                       shell=True,
+                       check=True,
+                       stdout=subprocess.PIPE)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+
 def main():
+    if not check_online():
+        print(f"? | iconName={READ_ICON} color=red")
+        return
+
     totals, emails = check_accounts(ACCOUNTS)
     icon = UNREAD_ICON if totals > 0 else READ_ICON
 

@@ -110,7 +110,7 @@ def check_accounts(args: argparse.Namespace) -> str:
 
 
 def main():
-    args = parse_args(sys.argv)
+    args = parse_args(sys.argv[1:])
     ret = None
     try:
         ret = check_accounts(args)

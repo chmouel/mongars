@@ -1,5 +1,6 @@
 import argparse
 import email
+from email.header import decode_header
 import imaplib
 import logging
 import sys
@@ -10,6 +11,7 @@ from .notify import notify_if_not_already
 
 def get_unseen(mailbox: str, conn) -> dict:
     unseens = {}
+    default_charset = 'ASCII'
     resp, _ = conn.select(mailbox)
     if resp != "OK":
         logging.debug("cannot select mailbox %s", mailbox)
@@ -23,9 +25,17 @@ def get_unseen(mailbox: str, conn) -> dict:
     for msg in messages[0].decode().split(' '):
         _, response = conn.fetch(msg, '(BODY.PEEK[HEADER])')
         msg = email.message_from_bytes(response[0][1])
-        unseens[
-            msg.get("Message-Id"
-                    )] = f'{msg["From"]} - {msg.get("Subject", "No Subject")}'
+        msgfrom = ''.join([
+            str(t[0], t[1] or default_charset)
+            for t in decode_header(msg["From"])
+        ])
+        msg_subject = "No Subject"
+        if msg["Subject"]:
+            msg_subject = ''.join([
+                str(t[0], t[1] or default_charset)
+                for t in decode_header(msg["Subject"])
+                ])
+        unseens[msg.get("Message-Id")] = f'{msgfrom} - {msg_subject}'
     return unseens
 
 

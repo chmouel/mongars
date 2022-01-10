@@ -9,9 +9,21 @@ from .accounts import GOA
 from .notify import notify_if_not_already
 
 
+def decode_str(header):
+    ret = []
+    for thehe in decode_header(header):
+        if thehe[1]:
+            ret.append(thehe[0].decode(thehe[1]))
+        else:
+            if isinstance(thehe[0], str):
+                ret.append(thehe[0])
+            else:
+                ret.append(thehe[0].decode())
+    return ''.join(ret)
+
+
 def get_unseen(mailbox: str, conn) -> dict:
     unseens = {}
-    default_charset = 'ASCII'
     resp, _ = conn.select(mailbox)
     if resp != "OK":
         logging.debug("cannot select mailbox %s", mailbox)
@@ -25,16 +37,10 @@ def get_unseen(mailbox: str, conn) -> dict:
     for msg in messages[0].decode().split(' '):
         _, response = conn.fetch(msg, '(BODY.PEEK[HEADER])')
         msg = email.message_from_bytes(response[0][1])
-        msgfrom = ''.join([
-            str(t[0], t[1] or default_charset)
-            for t in decode_header(msg["From"])
-        ])
-        msg_subject = "No Subject"
-        if msg["Subject"]:
-            msg_subject = ''.join([
-                str(t[0], t[1] or default_charset)
-                for t in decode_header(msg["Subject"])
-                ])
+
+        msgfrom = decode_str(msg["From"])
+        msg_subject = decode_str(
+            msg["Subject"]) if msg.get("Subject") else "No Subject"
         unseens[msg.get("Message-Id")] = f'{msgfrom} - {msg_subject}'
     return unseens
 

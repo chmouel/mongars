@@ -3,7 +3,6 @@ import logging
 import sys
 
 from .gauth import PASS_CRED_KEY, PASS_TOKEN_KEY, gauth_check_accounts
-from .imap import imap_check_accounts
 
 
 def parse_args(args) -> argparse.Namespace:
@@ -82,6 +81,7 @@ def main():
         if args.gauth:
             ret = gauth_check_accounts(args)
         else:
+            from .imap import imap_check_accounts
 
             ret = imap_check_accounts(args)
     # pylint: disable=broad-except

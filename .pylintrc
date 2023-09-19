@@ -13,5 +13,6 @@ disable = C0413,
         broad-exception-raised,
         no-member,
         missing-docstring,
+        import-outside-toplevel
 
 # vim: ft=toml

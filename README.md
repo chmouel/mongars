@@ -40,7 +40,13 @@ you can define the pass key to other values by defining the flags
 You can output a markdown formatted (optionally) with `gum` if you pass the
 option `-M/--show-markdown`
 
-You can output as json for waybar with `-J/--show-json`
+![Screenshot_2023-09-19-14 13 14(1)](https://github.com/chmouel/mongars/assets/98980/fcd49e1f-fbc6-45ed-bd9c-d6780dbcbd5a)
+
+
+You can output as json for waybar with `-J/--show-json` and it will show a tooltip of your last 5 message and subject snippet.
+
+![](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
+
 
 ### Gnome Online Accounts
 

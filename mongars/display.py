@@ -22,6 +22,8 @@ def decode_str(header):
 
 
 def show_markdown(args: argparse.Namespace, unseens: list) -> str:
+    if not unseens:
+        return ""
     ret = f"# Email on {args.email}\n\n## Unread emails {len(unseens)}\n"
     for unseen in unseens:
         from_email = "<" in unseen["From"] and unseen["From"] or f"<{unseen['From']}>"
@@ -30,16 +32,18 @@ def show_markdown(args: argparse.Namespace, unseens: list) -> str:
             unseen["snippet"],
             width=80,
         )
+        snippet_truncated = html.unescape(snippet_truncated)
         ret += f"""
-- From: {from_email}
-- To: {to_email}
-- Date: {unseen['Date']}
+## Subject: {unseen['Subject']}
+* **From**: {from_email}
+* **To**: {to_email}
+* **Date**: {unseen['Date']}
 
 ```
 {snippet_truncated}
 ```
 """
-    if shutil.which("gum"):
+    if shutil.which("gum") and not args.no_gum_output:
         cmdline = "gum format"
         output = subprocess.run(
             cmdline,

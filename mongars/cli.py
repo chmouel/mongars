@@ -66,6 +66,11 @@ def parse_args(args) -> argparse.Namespace:
         default=PASS_CRED_KEY,
         help="path to the key in the password store for storing creds",
     )
+    parser.add_argument(
+        "--no-gum-output",
+        action="store_true",
+        help="Don't pipe to gum the markdown output, just print it",
+    )
 
     args = parser.parse_args(args)
     if args.verbose:

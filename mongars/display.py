@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import textwrap
 from email.header import decode_header
+from typing import Union
 
 
 def decode_str(header):
@@ -52,7 +53,7 @@ def show_markdown(args: argparse.Namespace, unseens: list) -> str:
     return ret
 
 
-def show_json(args: argparse.Namespace, unseens: list | dict) -> str:
+def show_json(args: argparse.Namespace, unseens: Union[list, dict]) -> str:
     if not unseens:
         return "{}"
     ret = {"text": f"{args.icon}  {len(unseens)}", "tooltip": ""}
@@ -63,7 +64,7 @@ def show_json(args: argparse.Namespace, unseens: list | dict) -> str:
     return json.dumps(ret)
 
 
-def show_unseens(args: argparse.Namespace, unseens: list | dict) -> str:
+def show_unseens(args: argparse.Namespace, unseens: Union[list, dict]) -> str:
     if args.no_mail_no_zero and len(unseens) == 0:
         return ""
     if args.show_from_subject:

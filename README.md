@@ -5,8 +5,44 @@ count inbox emails using Gnome Online Accounts
 ## Description
 
 `mongars` will take an email account as configured in Gnome Online account (only
-oauth based email account is supported) and will output how many unread emails
+oauth based email account is supported) or via the GMAIL Api and will output how many unread emails
 you have in there.
+
+## Usage
+
+### Gmail API
+
+You need to [generate a OAUTH
+credentials.json](https://developers.google.com/workspace/guides/create-credentials)
+via the google API console.
+
+When it's done using [pass](https://www.passwordstore.org/) you need to insert it in your pass store:
+
+```shell
+pass insert -m google/$EMAIL.mail.credential
+INSERT YOUR CREDENTIALS HERE
+```
+
+Run `mongars` for the first time with the flag `--gauth` and your `$EMAIL` as
+argument:
+
+```shell
+mongars --gauth $EMAIL
+```
+
+it will start your webbrowser to allow it to access to read your email
+on your `$EMAIL.` It stores and refresh the token in the password store key
+`google/$EMAIL.mail.token`
+
+you can define the pass key to other values by defining the flags
+`--gauth-pass-token-key` and `--gauth-pass-cred-key`
+
+You can output a markdown formatted (optionally) with `gum` if you pass the
+option `-M/--show-markdown`
+
+You can output as json for waybar with `-J/--show-json`
+
+### Gnome Online Accounts
 
 You just need to specify the email to check as an argument i.e:
 
@@ -100,7 +136,7 @@ exec-if = grep -q email@gmail.com ~/.config/goa-1.0/accounts.conf 2>/dev/null &&
 ## Waybar
 ```json
     "custom/email": {
-        "format": "﫮 {} ",
+        "format": " {} ",
         "interval": 15,
         "exec": "mongars email@gmail.com --no-mail-no-zero --no-icon",
         "on-click": "xdg-open https://mail.google.com"
@@ -112,6 +148,25 @@ and you can style it in `style.css` file :
 ```css
 #custom-email {
 	color: #b22222;
+}
+```
+
+#### Waybar as Json with Gauth
+
+The gauth method support output to json, here is an example integrating it:
+
+```json
+{
+    "custom/email-work": {
+        "format": "{} ",
+        "return-type": "json",
+        "tooltip": "true",
+        "tooltip-format": "{tooltip}",
+        "interval": 15,
+        "exec": "poetry run mongars --gauth myemail@gmail.com -J",
+        "on-click-middle": "kitty -T \"Email for myemail@gmail.com\" bash -c \"mongars --gauth myemail@gmail.com -M|less -R\"",
+        "on-click": "xdg-open https://mail.google.com/"
+    },
 }
 ```
 

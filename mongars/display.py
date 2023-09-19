@@ -1,7 +1,10 @@
 import argparse
+import html
+import json
+import shutil
+import subprocess
+import textwrap
 from email.header import decode_header
-
-from .notify import notify_if_not_already
 
 
 def decode_str(header):
@@ -17,14 +20,56 @@ def decode_str(header):
     return "".join(ret)
 
 
-def show_unseens(args: argparse.Namespace, unseens: dict) -> str:
+def show_markdown(args: argparse.Namespace, unseens: list) -> str:
+    ret = f"# Email on {args.email}\n\n## Unread emails {len(unseens)}\n"
+    for unseen in unseens:
+        from_email = "<" in unseen["From"] and unseen["From"] or f"<{unseen['From']}>"
+        to_email = "<" in unseen["To"] and unseen["To"] or f"<{unseen['To']}>"
+        snippet_truncated = textwrap.fill(
+            unseen["snippet"],
+            width=80,
+        )
+        ret += f"""
+- From: {from_email}
+- To: {to_email}
+- Date: {unseen['Date']}
+
+```
+{snippet_truncated}
+```
+"""
+    if shutil.which("gum"):
+        cmdline = "gum format"
+        output = subprocess.run(
+            cmdline,
+            stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            shell=True,
+            check=True,
+            input=ret.encode(),
+        )
+        return output.stdout.decode().strip()
+    return ret
+
+
+def show_json(args: argparse.Namespace, unseens: list | dict) -> str:
+    if not unseens:
+        return "{}"
+    ret = {"text": f"{args.icon}  {len(unseens)}", "tooltip": ""}
+    for unseen in unseens[:5]:
+        subject_wrap = textwrap.shorten(unseen["Subject"], width=50)
+        ret["tooltip"] += f"• {unseen['From']}: {subject_wrap}\n"
+    ret["tooltip"] = html.escape(ret["tooltip"])
+    return json.dumps(ret)
+
+
+def show_unseens(args: argparse.Namespace, unseens: list | dict) -> str:
     if args.no_mail_no_zero and len(unseens) == 0:
         return ""
-    if args.notify:
-        notify_if_not_already(unseens)
-
     if args.show_from_subject:
-        return "\n".join(unseens.values())
+        if isinstance(unseens, list):
+            return "\n".join([x["Subject"] for x in unseens])
+        return "\n".join(unseens.values())  # type: ignore
 
     if args.no_icon:
         return str(len(unseens))

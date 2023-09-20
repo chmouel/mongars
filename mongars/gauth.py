@@ -9,33 +9,24 @@ from google_auth_oauthlib.flow import InstalledAppFlow  # type: ignore
 from googleapiclient.discovery import build  # type: ignore
 
 from .display import show_json, show_markdown, show_unseens
-from .passwordstore import get_item_from_pass, store_item_in_pass
 from .notifications import notify
+from .passwordstore import get_item_from_pass
 
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
 ]
 
-PASS_TOKEN_KEY = "google/{email}.mail.token"
 PASS_CRED_KEY = "google/{email}.mail.credential"
+TOKEN_JSON_FILE = "~/.cache/mongars/token.{email}.json"
 
 
 def gauth_get_creds(args: argparse.Namespace):
     creds = None
-    token_json = ""
-    try:
-        token_json = get_item_from_pass(
-            args.gauth_pass_token_key.format(email=args.email)
-        )
-    except subprocess.CalledProcessError:
-        pass
-    if token_json:
-        with tempfile.NamedTemporaryFile() as tmpff:
-            tmpff.write(token_json.encode())
-            tmpff.flush()
-            creds = Credentials.from_authorized_user_file(
-                pathlib.Path(tmpff.name), SCOPES
-            )
+    token_json_file: pathlib.Path = pathlib.Path(
+        args.gauth_pass_token_file.format(email=args.email)
+    ).expanduser()
+    if token_json_file.exists():
+        creds = Credentials.from_authorized_user_file(token_json_file, SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -61,10 +52,8 @@ def gauth_get_creds(args: argparse.Namespace):
                 creds = flow.run_local_server(open_browser=False)
                 if not creds:
                     raise Exception("Cannot run flow")
-
-        store_item_in_pass(
-            args.gauth_pass_token_key.format(email=args.email), creds.to_json()
-        )
+        token_json_file.parent.mkdir(parents=True, exist_ok=True)
+        token_json_file.write_text(creds.to_json())
     return creds
 
 

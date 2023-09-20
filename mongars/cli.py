@@ -3,7 +3,7 @@ import logging
 import os
 import sys
 
-from .gauth import PASS_CRED_KEY, PASS_TOKEN_KEY, gauth_check_accounts
+from .gauth import PASS_CRED_KEY, TOKEN_JSON_FILE, gauth_check_accounts
 
 NOTIFY_SEND_TEMPLATE_COMMAND = """notify-send -i "{icon}" "{subject}" "{snippet}" """
 
@@ -47,7 +47,6 @@ def parse_args(args) -> argparse.Namespace:
         action="store_true",
         help="Show as a markdown of all your events",
     )
-
     parser.add_argument(
         "--show-json",
         "-J",
@@ -60,9 +59,9 @@ def parse_args(args) -> argparse.Namespace:
         help="use gauth, you need to have creds stored in password store",
     )
     parser.add_argument(
-        "--gauth-pass-token-key",
-        default=PASS_TOKEN_KEY,
-        help="path to the key in the password store for storing token",
+        "--gauth-pass-token-file",
+        default=TOKEN_JSON_FILE,
+        help="path to the temporary file where the token is stored",
     )
     parser.add_argument(
         "--gauth-pass-cred-key",

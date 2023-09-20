@@ -24,19 +24,23 @@ pass insert -m google/$EMAIL.mail.credential
 INSERT YOUR CREDENTIALS HERE
 ```
 
-Run `mongars` for the first time with the flag `--gauth` and your `$EMAIL` as
-argument:
+Run `mongars` on your terminal for the first time with the flag `--gauth` and
+your `$EMAIL` as argument:
 
 ```shell
 mongars --gauth $EMAIL
 ```
 
-It will start your web browser to allow it to access to read your email
-on your `$EMAIL.` It stores and refresh the token in the password store key
-`google/$EMAIL.mail.token`
+It will print a URL to open in your web browser and start the google Oauth flow
+to allow it to access to read your email on your `$EMAIL` account. It stores and
+refresh the temporary token in `~/.cache/mongars/token.$EMAIL.json`.
 
 You can define the pass key to other values by defining the flags
-`--gauth-pass-token-key` and `--gauth-pass-cred-key`
+`--gauth-pass-cred-key`. If you want to use the same credentials for multiple
+emails you would want to define this flag to the same value to both pass key
+path.
+
+If you want you can as well redefine the `--gauth-pass-token-file` somewhere else.
 
 You can output a markdown formatted (optionally) with `gum` if you pass the
 option `-M/--show-markdown`
@@ -48,13 +52,18 @@ tooltip of your last 5 message and subject snippet.
 
 ![waybar integration screenshot](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
 
-You can as well have notification on new email if you have the `notify-send` command installed.
+You can as well have notification on new email if you have the `notify-send`
+command installed.
 
-You can customize the template and the command with the `--notify-command-template` flag the default is:
+You can customize the template and the command with the
+`--notify-command-template` flag the default is:
 
 `notify-send -i "{icon}" "{subject}" "{snippet}"`
 
 The icon, subject and snippet are replaced with the values of the email.
+
+We are generally just quiet and don't output anything if there is an error,
+just use `-v` to see the error.
 
 ### Gnome Online Accounts
 
@@ -65,7 +74,7 @@ mongars john.snow@gmail.com
 ```
 
 By default it will output the number of messages from your mailbox with an icon of different
-colours if there is unreads message or not.
+colours if there is unread message or not.
 
 The `INBOX` folder is the default folder, if you would like to count another folder you can specify the `-m` option to it :
 
@@ -87,7 +96,7 @@ This currently only support oauth2 based accounts, imap account with username,
 password are not currently supported (patch welcome but you probably want to use
 something more secure).
 
-I only tested it with Google/Gmail accounts (enteprise and personal) so let me
+I only tested it with Google/Gmail accounts (enterprise and personal) so let me
 know if it works or not on other oauth2 based email accounts.
 
 ## Install

@@ -10,6 +10,7 @@ from googleapiclient.discovery import build  # type: ignore
 
 from .display import show_json, show_markdown, show_unseens
 from .passwordstore import get_item_from_pass, store_item_in_pass
+from .notifications import notify
 
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
@@ -96,6 +97,7 @@ def gauth_check_unseens(args: argparse.Namespace) -> list:
 
 def gauth_check_accounts(args: argparse.Namespace) -> str:
     unseens = gauth_check_unseens(args)
+    notify(args, unseens)
     if args.show_markdown:
         return show_markdown(args, unseens)
     if args.show_json:

@@ -1,8 +1,11 @@
 import argparse
 import logging
+import os
 import sys
 
 from .gauth import PASS_CRED_KEY, PASS_TOKEN_KEY, gauth_check_accounts
+
+NOTIFY_SEND_TEMPLATE_COMMAND = """notify-send -i "{icon}" "{subject}" "{snippet}" """
 
 
 def parse_args(args) -> argparse.Namespace:
@@ -70,6 +73,16 @@ def parse_args(args) -> argparse.Namespace:
         "--no-gum-output",
         action="store_true",
         help="Don't pipe to gum the markdown output, just print it",
+    )
+
+    parser.add_argument(
+        "--notify-command-template",
+        default=NOTIFY_SEND_TEMPLATE_COMMAND,
+    )
+
+    parser.add_argument(
+        "--notify-icon-path",
+        default=f"{os.environ.get('HOME')}/.local/share/icons/gmail.png",
     )
 
     args = parser.parse_args(args)

@@ -30,11 +30,11 @@ argument:
 mongars --gauth $EMAIL
 ```
 
-it will start your webbrowser to allow it to access to read your email
+It will start your web browser to allow it to access to read your email
 on your `$EMAIL.` It stores and refresh the token in the password store key
 `google/$EMAIL.mail.token`
 
-you can define the pass key to other values by defining the flags
+You can define the pass key to other values by defining the flags
 `--gauth-pass-token-key` and `--gauth-pass-cred-key`
 
 You can output a markdown formatted (optionally) with `gum` if you pass the
@@ -42,11 +42,18 @@ option `-M/--show-markdown`
 
 ![Screenshot_2023-09-19-14 13 14(1)](https://github.com/chmouel/mongars/assets/98980/fcd49e1f-fbc6-45ed-bd9c-d6780dbcbd5a)
 
+You can output as json for waybar with `-J/--show-json` and it will show a
+tooltip of your last 5 message and subject snippet.
 
-You can output as json for waybar with `-J/--show-json` and it will show a tooltip of your last 5 message and subject snippet.
+![waybar integration screenshot](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
 
-![](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
+You can as well have notification on new email if you have the `notify-send` command installed.
 
+You can customize the template and the command with the `--notify-command-template` flag the default is:
+
+`notify-send -i "{icon}" "{subject}" "{snippet}"`
+
+The icon, subject and snippet are replaced with the values of the email.
 
 ### Gnome Online Accounts
 

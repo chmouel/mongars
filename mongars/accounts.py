@@ -3,8 +3,8 @@ import typing
 
 import gi  # type:ignore
 
-gi.require_version('Secret', '1')
-gi.require_version('GLib', '2.0')
+gi.require_version("Secret", "1")
+gi.require_version("GLib", "2.0")
 # pylint: disable=C0413
 from gi.repository import GLib  # type:ignore
 
@@ -14,10 +14,10 @@ class AccountError(Exception):
 
 
 try:
-    gi.require_version('Goa', '1.0')
+    gi.require_version("Goa", "1.0")
     from gi.repository import Goa  # type:ignore
 except (ValueError, ModuleNotFoundError) as exp:
-    raise AccountError('No gnome online accounts support found') from exp
+    raise AccountError("No gnome online accounts support found") from exp
 
 
 class GOA:
@@ -39,23 +39,23 @@ class GOA:
         except GLib.Error as error:
             # pylint: disable=no-member
             if error.code == 0:
-                raise AccountError('Account Offline') from error
+                raise AccountError("Account Offline") from error
             if error.code == 4:
                 raise AccountError(
-                    'Locked or Invalid credentials for GOA account') from error
-            logging.error('Unknown GLIB exception getting GOA credentials',
-                          exc_info=True)
-            raise AccountError('Unknown error') from error
+                    "Locked or Invalid credentials for GOA account"
+                ) from error
+            logging.error(
+                "Unknown GLIB exception getting GOA credentials", exc_info=True
+            )
+            raise AccountError("Unknown error") from error
         except Exception as error:
-            logging.info('Unknown exception getting GOA credentials',
-                         exc_info=True)
-            raise AccountError('Unknown error') from error
+            logging.info("Unknown exception getting GOA credentials", exc_info=True)
+            raise AccountError("Unknown error") from error
 
         return {
-            'host': imap_host,
-            'user': user_name,
-            'oauth':
-            f'user={user_name}\1auth=Bearer {auth_token[0]}\1\1'.encode(),
+            "host": imap_host,
+            "user": user_name,
+            "oauth": f"user={user_name}\1auth=Bearer {auth_token[0]}\1\1".encode(),
         }
 
     @staticmethod
@@ -64,7 +64,10 @@ class GOA:
         accounts = client.get_accounts()
         for account in accounts:
             mail = account.get_mail()
-            if (not mail or account.get_account().props.mail_disabled
-                    or not mail.props.imap_supported):
+            if (
+                not mail
+                or account.get_account().props.mail_disabled
+                or not mail.props.imap_supported
+            ):
                 continue
             yield account

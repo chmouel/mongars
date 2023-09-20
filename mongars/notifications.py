@@ -9,9 +9,9 @@ DB_PATH = pathlib.Path(f"{os.environ.get('HOME')}/.cache/mongars/notified.db")
 MAX_ENTRY_CACHE = 200  # if you have more than 200, it is insane...
 
 
-def cleanup_str(s: str) -> str:
+def cleanup_str(toreplace: str) -> str:
     return (
-        s.replace('"', '\\"')
+        toreplace.replace('"', '\\"')
         .replace("'", "\\'")
         .replace("$", "\\$")
         .replace("\u200c", "")

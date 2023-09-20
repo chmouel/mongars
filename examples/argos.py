@@ -8,7 +8,7 @@ import mongars.cli as mong
 
 ACCOUNTS = {
     "Work": ("workemail@work.com", "https://mail.company.com", "red"),
-    "Gmail": ("personalemail@gmail.com", "https://mail.google.com/", "blue")
+    "Gmail": ("personalemail@gmail.com", "https://mail.google.com/", "blue"),
 }
 
 UNREAD_ICON = "mail-unread-symbolic"
@@ -30,10 +30,7 @@ def check_accounts(accounts):
 # use NetworkManager to checks if we are online
 def check_online() -> bool:
     try:
-        subprocess.run("nm-online -t 1",
-                       shell=True,
-                       check=True,
-                       stdout=subprocess.PIPE)
+        subprocess.run("nm-online -t 1", shell=True, check=True, stdout=subprocess.PIPE)
         return True
     except subprocess.CalledProcessError:
         return False
@@ -51,9 +48,7 @@ def main():
     for account in ACCOUNTS.items():
         print("---")
         accountmail = account[1][0]
-        print(
-            f"{account[0]} - {len(emails[accountmail])} | href={account[1][1]} "
-        )
+        print(f"{account[0]} - {len(emails[accountmail])} | href={account[1][1]} ")
         # print("---")
         # for newmail in emails[accountmail]:
         #     print(f"{newmail} | color={account[1][2]}")

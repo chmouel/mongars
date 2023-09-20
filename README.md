@@ -1,12 +1,12 @@
 # mongars - count inbox emails
 
-count inbox emails using Gnome Online Accounts
+Count inbox emails using Gmail API or Gnome Online Accounts (limited support)
 
 ## Description
 
-`mongars` will take an email account as configured in Gnome Online account (only
-oauth based email account is supported) or via the GMAIL Api and will output how many unread emails
-you have in there.
+`mongars` will take an email account as configured in Gnome Online account
+(only oauth based email account is supported) or via the GMAIL API and will
+output how many unread emails you have in there.
 
 ## Usage
 
@@ -16,7 +16,8 @@ You need to [generate a OAUTH
 credentials.json](https://developers.google.com/workspace/guides/create-credentials)
 via the google API console.
 
-When it's done using [pass](https://www.passwordstore.org/) you need to insert it in your pass store:
+When it's done using [pass](https://www.passwordstore.org/) you need to insert
+it in your pass store:
 
 ```shell
 pass insert -m google/$EMAIL.mail.credential
@@ -74,9 +75,9 @@ mongars -m Label1 john.snow@gmail.com
 
 You can further customize the colour output which uses lemonbar formatting with :
 
-* `--icon`: the glyph icon default to ``
-* `--icon-color-unreads`: the color when unreads, default to a yellow `#ffd700` set this to empty if you don't want any color formatting.
-* `--icon-color-normal`: the normal colors. (no default)
+- `--icon`: the glyph icon default to ``
+- `--icon-color-unreads`: the color when unreads, default to a yellow `#ffd700` set this to empty if you don't want any color formatting.
+- `--icon-color-normal`: the normal colors. (no default)
 
 By default if you have no mail it will output a 0 unless you specify the flag `--no-mail-no-zero`
 
@@ -123,7 +124,7 @@ poetry run mongars
 If you run this outside of gnome environement (ie: from a windows manager), you have to configure the accounts
 first in Gnone Online Account settings from gnome and then you can use it from your windows manager.
 
-From your window manager start scripts or [somewhere else](https://wiki.archlinux.org/title/Xinit)  you need to make sure to run the goa-daemon, for example on arch the path is `/usr/lib/goa-daemon` and from your startup script you will do :
+From your window manager start scripts or [somewhere else](https://wiki.archlinux.org/title/Xinit) you need to make sure to run the goa-daemon, for example on arch the path is `/usr/lib/goa-daemon` and from your startup script you will do :
 
 ```shell
 /usr/lib/goa-daemon --replace &
@@ -145,8 +146,8 @@ click-left = xdg-open https://mail.google.com/
 exec-if = grep -q email@gmail.com ~/.config/goa-1.0/accounts.conf 2>/dev/null && ping -c1 mail.google.com
 ```
 
-
 ## Waybar
+
 ```json
     "custom/email": {
         "format": " {} ",
@@ -160,7 +161,7 @@ and you can style it in `style.css` file :
 
 ```css
 #custom-email {
-	color: #b22222;
+  color: #b22222;
 }
 ```
 
@@ -170,16 +171,16 @@ The gauth method support output to json, here is an example integrating it:
 
 ```json
 {
-    "custom/email-work": {
-        "format": "{} ",
-        "return-type": "json",
-        "tooltip": "true",
-        "tooltip-format": "{tooltip}",
-        "interval": 15,
-        "exec": "poetry run mongars --gauth myemail@gmail.com -J",
-        "on-click-middle": "kitty -T \"Email for myemail@gmail.com\" bash -c \"mongars --gauth myemail@gmail.com -M|less -R\"",
-        "on-click": "xdg-open https://mail.google.com/"
-    },
+  "custom/email-work": {
+    "format": "{} ",
+    "return-type": "json",
+    "tooltip": "true",
+    "tooltip-format": "{tooltip}",
+    "interval": 15,
+    "exec": "poetry run mongars --gauth myemail@gmail.com -J",
+    "on-click-middle": "kitty -T \"Email for myemail@gmail.com\" bash -c \"mongars --gauth myemail@gmail.com -M|less -R\"",
+    "on-click": "xdg-open https://mail.google.com/"
+  }
 }
 ```
 

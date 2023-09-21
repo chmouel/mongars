@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mongars"
-version = "1.4.0"
+version = "1.4.1"
 description = "Show unread emails in INBOX using Gmail Api or Gnome Online Accounts"
 authors = ["Chmouel Boudjnah <chmouel@chmouel.com>"]
 keywords = ["email", "cli"]

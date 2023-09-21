@@ -12,12 +12,13 @@ include = ["LICENSE"]
 classifiers = ["License :: OSI Approved :: Apache Software License"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 PyGObject = "^3.42.0"
 google-api-core = "^2.11.1"
 google-auth = "^2.23.0"
 google-auth-oauthlib = "^1.1.0"
 google-api-python-client = "^2.99.0"
+ipython = "^8.15.0"
 
 [tool.poetry.scripts]
 mongars = "mongars.cli:main"

@@ -29,7 +29,7 @@ def show_markdown(args: argparse.Namespace, unseens: list) -> str:
         from_email = "<" in unseen["From"] and unseen["From"] or f"<{unseen['From']}>"
         to_email = "<" in unseen["To"] and unseen["To"] or f"<{unseen['To']}>"
         snippet_truncated = textwrap.fill(
-            unseen["snippet"],
+            unseen["Snippet"],
             width=80,
         )
         snippet_truncated = html.unescape(snippet_truncated)

@@ -14,6 +14,7 @@ from .passwordstore import get_item_from_pass
 
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.modify",
 ]
 
 PASS_CRED_KEY = "google/{email}.mail.credential"
@@ -60,6 +61,7 @@ def gauth_get_creds(args: argparse.Namespace):
 def gauth_check_unseens(args: argparse.Namespace) -> list:
     creds = gauth_get_creds(args)
     service = build("gmail", "v1", credentials=creds)
+    args.service = service
     results = (
         service.users()
         .messages()
@@ -78,7 +80,8 @@ def gauth_check_unseens(args: argparse.Namespace) -> list:
             for x in email_data
             if x["name"] in ("Subject", "From", "To", "Message-ID", "Date")
         }
-        row["snippet"] = msg["snippet"]
+        row["Snippet"] = msg["snippet"]
+        row["ID"] = msg["id"]
         ret.append(row)
 
     return ret

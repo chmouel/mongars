@@ -3,9 +3,13 @@ import logging
 import os
 import sys
 
-from .gauth import PASS_CRED_KEY, TOKEN_JSON_FILE, gauth_check_accounts
+from .gauth import (
+    PASS_CRED_KEY,
+    TOKEN_JSON_FILE,
+    gauth_check_accounts,
+)
 
-NOTIFY_SEND_TEMPLATE_COMMAND = """notify-send -i "{icon}" "{subject}" "{snippet}" """
+from .notifications import GMAIL_URL, NOTIFY_TIMEOUT, NOTIFY_SEND_TEMPLATE_COMMAND
 
 
 def parse_args(args) -> argparse.Namespace:
@@ -78,6 +82,13 @@ def parse_args(args) -> argparse.Namespace:
         "--notify-command-template",
         default=NOTIFY_SEND_TEMPLATE_COMMAND,
     )
+
+    parser.add_argument(
+        "--notify-timeout",
+        default=NOTIFY_TIMEOUT,
+    )
+
+    parser.add_argument("--gmail-url", default=GMAIL_URL)
 
     parser.add_argument(
         "--notify-icon-path",

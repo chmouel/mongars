@@ -52,15 +52,19 @@ tooltip of your last 5 message and subject snippet.
 
 ![waybar integration screenshot](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
 
-You can as well have notification on new email if you have the `notify-send`
-command installed.
+You will have notification on new email if you have the `notify-send`
+command installed. The notifications include an Open and Archive option,
+the Open is limited to a search because the Gmail interface don't have direct links support.
+
+![image](https://github.com/chmouel/mongars/assets/98980/bbc26ea5-ebde-49a4-8468-fd106e98cf72)
 
 You can customize the template and the command with the
 `--notify-command-template` flag the default is:
 
-`notify-send -i "{icon}" "{subject}" "{snippet}"`
+`notify-send -i "{icon}" "{sender}" "{subject}"`
 
-The icon, subject and snippet are replaced with the values of the email.
+The variables supported are `icon`, `sender`, `subject` and `snippet` 
+are replaced with the values from the email.
 
 We are generally just quiet and don't output anything if there is an error,
 just use `-v` to see the error.

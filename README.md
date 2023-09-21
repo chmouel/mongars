@@ -46,14 +46,14 @@ You will have notification on new email if you have the `notify-send`
 command installed. The notifications include an Open and Archive option,
 the Open is limited to a search because the Gmail interface don't have direct links support.
 
-![image](https://github.com/chmouel/mongars/assets/98980/bbc26ea5-ebde-49a4-8468-fd106e98cf72)
+![image](https://github.com/chmouel/mongars/assets/98980/f7106411-4272-4c1a-801c-6c9c13b57d79)
 
 You can customize the template and the command with the
 `--notify-command-template` flag the default is:
 
 `notify-send -i "{icon}" "{sender}" "{subject}"`
 
-The variables supported are `icon`, `sender`, `subject` and `snippet` 
+The variables supported are `icon`, `sender`, `subject` and `snippet`
 are replaced with the values from the email.
 
 You can output a markdown formatted (optionally) with `gum` if you pass the

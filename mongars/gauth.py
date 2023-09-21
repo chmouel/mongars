@@ -1,4 +1,5 @@
 import argparse
+import multiprocessing
 import pathlib
 import subprocess
 import tempfile
@@ -89,10 +90,13 @@ def gauth_check_unseens(args: argparse.Namespace) -> list:
 
 def gauth_check_accounts(args: argparse.Namespace) -> str:
     unseens = gauth_check_unseens(args)
-    notify(args, unseens)
+
     if args.show_markdown:
         return show_markdown(args, unseens)
     if args.show_json:
         return show_json(args, unseens)
 
+    proc = multiprocessing.Process(target=notify, args=(args, unseens))
+    proc.start()
+    proc.join()
     return show_unseens(args, unseens)

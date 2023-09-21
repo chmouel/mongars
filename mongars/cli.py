@@ -3,18 +3,13 @@ import logging
 import os
 import sys
 
-from .gauth import (
-    PASS_CRED_KEY,
-    TOKEN_JSON_FILE,
-    gauth_check_accounts,
-)
-
-from .notifications import GMAIL_URL, NOTIFY_TIMEOUT, NOTIFY_SEND_TEMPLATE_COMMAND
+from .gauth import PASS_CRED_KEY, TOKEN_JSON_FILE, gauth_check_accounts
+from .notifications import GMAIL_URL, NOTIFY_SEND_TEMPLATE_COMMAND, NOTIFY_TIMEOUT
 
 
 def parse_args(args) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Show email count from Gnome Online Account"
+        description="Show email count and notifications using Gmail API or Gnome Online Account"  # pylint: disable=line-too-long
     )
     parser.add_argument("email")
     parser.add_argument(

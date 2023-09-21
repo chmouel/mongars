@@ -42,16 +42,6 @@ path.
 
 If you want you can as well redefine the `--gauth-pass-token-file` somewhere else.
 
-You can output a markdown formatted (optionally) with `gum` if you pass the
-option `-M/--show-markdown`
-
-![Screenshot_2023-09-19-14 13 14(1)](https://github.com/chmouel/mongars/assets/98980/fcd49e1f-fbc6-45ed-bd9c-d6780dbcbd5a)
-
-You can output as json for waybar with `-J/--show-json` and it will show a
-tooltip of your last 5 message and subject snippet.
-
-![waybar integration screenshot](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
-
 You will have notification on new email if you have the `notify-send`
 command installed. The notifications include an Open and Archive option,
 the Open is limited to a search because the Gmail interface don't have direct links support.
@@ -65,6 +55,16 @@ You can customize the template and the command with the
 
 The variables supported are `icon`, `sender`, `subject` and `snippet` 
 are replaced with the values from the email.
+
+You can output a markdown formatted (optionally) with `gum` if you pass the
+option `-M/--show-markdown`
+
+![Screenshot_2023-09-19-14 13 14(1)](https://github.com/chmouel/mongars/assets/98980/fcd49e1f-fbc6-45ed-bd9c-d6780dbcbd5a)
+
+You can output as json for waybar with `-J/--show-json` and it will show a
+tooltip of your last 5 message and subject snippet.
+
+![waybar integration screenshot](https://github.com/chmouel/mongars/assets/98980/79f200a6-1b71-4654-b424-65c36a85e2e5)
 
 We are generally just quiet and don't output anything if there is an error,
 just use `-v` to see the error.

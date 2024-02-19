@@ -5,8 +5,8 @@ import gi  # type:ignore
 
 gi.require_version("Secret", "1")
 gi.require_version("GLib", "2.0")
-# pylint: disable=C0413
-from gi.repository import GLib  # type:ignore
+
+from gi.repository import GLib  # noqa: E402 # type:ignore
 
 
 class AccountError(Exception):

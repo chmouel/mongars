@@ -60,7 +60,7 @@ def show_markdown(args: argparse.Namespace, unseens: list) -> str:
 def show_json(args: argparse.Namespace, unseens: Union[list, dict]) -> str:
     if not unseens:
         return "{}"
-    ret = {"text": f"{args.icon}  {len(unseens)}", "tooltip": ""}
+    ret = {"text": f"{args.icon} {len(unseens)}", "tooltip": ""}
     for unseen in unseens[:5]:
         subject_wrap = textwrap.shorten(unseen["Subject"], width=50)
         ret["tooltip"] += f"• {unseen['From']}: {subject_wrap}\n"

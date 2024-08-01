@@ -24,7 +24,7 @@ ipython = "^8.15.0"
 mongars = "mongars.cli:main"
 
 [tool.poetry.dev-dependencies]
-pytest = "^8.2"
+pytest = "^8.3"
 pylint = "^2.12.2"
 mypy = "^1.10"
 yapf = "^0.31.0"

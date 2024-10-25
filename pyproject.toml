@@ -27,7 +27,7 @@ mongars = "mongars.cli:main"
 pytest = "^8.2"
 pylint = "^2.12.2"
 mypy = "^1.10"
-yapf = "^0.31.0"
+yapf = "^0.40.2"
 icecream = "^2.1.1"
 
 [tool.ruff]

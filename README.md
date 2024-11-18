@@ -115,7 +115,7 @@ yay -S mongars
 
 ### pip
 
-With pip from pypip - https://pypi.org/project/mongars/
+With pip from pypip - <https://pypi.org/project/mongars/>
 
 ```
 pip install --user mongars
@@ -125,11 +125,11 @@ pip install --user mongars
 
 ### Manual
 
-Checkout this repository, [install poetry](https://python-poetry.org/docs/#installation) and run it with :
+Checkout this repository, [install uv](https://docs.astral.sh/uv/getting-started/installation/) and run it with :
 
 ```shell
-poetry install mongars
-poetry run mongars
+uv sync
+uv run mongars [ARGS]
 ```
 
 ## Running it without Gnome
@@ -190,7 +190,7 @@ The gauth method support output to json, here is an example integrating it:
     "tooltip": "true",
     "tooltip-format": "{tooltip}",
     "interval": 15,
-    "exec": "poetry run mongars --gauth myemail@gmail.com -J",
+    "exec": "uv run mongars --gauth myemail@gmail.com -J",
     "on-click-middle": "kitty -T \"Email for myemail@gmail.com\" bash -c \"mongars --gauth myemail@gmail.com -M|less -R\"",
     "on-click": "xdg-open https://mail.google.com/"
   }
@@ -203,4 +203,4 @@ The gauth method support output to json, here is an example integrating it:
 
 ## Authors
 
-© 2021 Chmouel Boudjnah ([@chmouel](https://twitter.com/chmouel)) - https://chmouel.com
+© 2021 Chmouel Boudjnah ([@chmouel](https://twitter.com/chmouel)) - <https://chmouel.com>

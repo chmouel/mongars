@@ -12,7 +12,7 @@ optdepends=('gum' 'python-gobject' 'evolution-data-server')
 depends=('python-google-api-core' 'python-google-api-python-client' 'python-google-auth' 'python-google-auth-httplib2' 'python-google-auth-oauthlib' 'python-googleapis-common-protos' 'pass' 'libnotify')
 source=("https://github.com/chmouel/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha256sums=('edfd9aa245aba16bca2f4d219343e55d7d331f5a7bc3cee2874e14dc15951b63')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'uv')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-hatchling')
 
 build() {
   cd "$pkgname-$pkgver" || exit

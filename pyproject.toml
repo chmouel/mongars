@@ -1,0 +1,22 @@
+[project]
+name = "mongars"
+version = "1.4.3"
+description = "Show unread emails in INBOX using Gmail Api or Gnome Online Accounts"
+readme = "README.md"
+authors = [{ name = "Chmouel Boudjnah", email = "chmouel@chmouel.com" }]
+requires-python = ">=3.12"
+license = "Apache-2.0"
+classifiers = ["License :: OSI Approved :: Apache Software License"]
+dependencies = [
+    "google-api-python-client>=2.153.0",
+    "google-auth-oauthlib>=1.2.1",
+    "google-auth>=2.36.0",
+    "pygobject>=3.50.0",
+]
+
+[project.scripts]
+mongars = "mongars.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

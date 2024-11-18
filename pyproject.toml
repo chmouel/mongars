@@ -1,6 +1,6 @@
 [project]
 name = "mongars"
-version = "1.4.3"
+version = "1.4.4"
 description = "Show unread emails in INBOX using Gmail Api or Gnome Online Accounts"
 readme = "README.md"
 authors = [{ name = "Chmouel Boudjnah", email = "chmouel@chmouel.com" }]

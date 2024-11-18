@@ -48,6 +48,8 @@ git commit -S -m "Release ${VERSION} 🥳" ${vfile} || true
 git tag -s ${VERSION} -m "Releasing version ${VERSION}"
 git push --tags origin ${VERSION}
 git push origin main
+rm -rf dist/
+mkdir dist
 uv build
 gh release create ${VERSION} ./dist/${PKGNAME}-${VERSION}.tar.gz
 uv publish -u __token__ -p $(pass show pypi/token)

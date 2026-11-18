@@ -12,7 +12,3 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
-  - repo: https://github.com/ikamensh/flynt/
-    rev: "1.0.1"
-    hooks:
-      - id: flynt
